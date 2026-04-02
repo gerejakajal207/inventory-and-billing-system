@@ -1,5 +1,14 @@
-from sqlalchemy import Column, Integer, String, DECIMAL, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, DECIMAL, ForeignKey, Date, Boolean
 from .database import Base
+
+
+class User(Base):
+    __tablename__ = "User"
+
+    user_id     = Column(Integer, primary_key=True, index=True)
+    username    = Column(String(100), unique=True)
+    email       = Column(String(100), unique=True)
+    password    = Column(String(255))
 
 
 class Customer(Base):
@@ -15,11 +24,13 @@ class Customer(Base):
 class Product(Base):
     __tablename__ = "Product"
 
-    product_id  = Column(Integer, primary_key=True, index=True)
-    prod_name   = Column(String(100))
-    category    = Column(String(100))
-    brand       = Column(String(100))
-    unit_price  = Column(DECIMAL(10, 2))
+    product_id   = Column(Integer, primary_key=True, index=True)
+    prod_name    = Column(String(100))
+    category     = Column(String(100))
+    brand        = Column(String(100))
+    unit_price   = Column(DECIMAL(10, 2))
+    stock_qty    = Column(Integer, default=0)
+    min_stock    = Column(Integer, default=10)
 
 
 class Invoice(Base):
